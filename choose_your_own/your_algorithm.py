@@ -1,5 +1,6 @@
 #!/usr/bin/python
-
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from prep_terrain_data import makeTerrainData
 from class_vis import prettyPicture
@@ -24,13 +25,22 @@ plt.scatter(grade_slow, bumpy_slow, color = "r", label="slow")
 plt.legend()
 plt.xlabel("bumpiness")
 plt.ylabel("grade")
-plt.show()
+plt.savefig("initial_vis.png")
 ################################################################################
 
 
-### your code here!  name your classifier object clf if you want the 
+### your code here!  name your classifier object clf if you want the
 ### visualization code (prettyPicture) to show you the decision boundary
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 
+clf = RandomForestClassifier(n_estimators=30, min_samples_split=20, criterion='entropy')
+clf = clf.fit(features_train, labels_train)
+pred = clf.predict(features_test)
+acc = accuracy_score(pred, labels_test)
+print("Random Forest Accuracy: ", acc)
+
+#
 
 
 
